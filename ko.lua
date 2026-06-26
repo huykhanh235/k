@@ -92,6 +92,7 @@ local function loadHub(key)
             })
         end)
 
+
         task.spawn(function()
             task.wait(1800) -- 30 minutes
             local player = game:GetService("Players").LocalPlayer
@@ -164,7 +165,25 @@ AuthTab:Section({
     FontWeight = Enum.FontWeight.Medium,
 })
 
--- ĐÃ XÓA: Section "Use Key FreeKey" và nút "Join Discord to Get Key"
+AuthTab:Section({
+    Title = "Use Key \"FreeKey\" for free trial",
+    TextSize = 14,
+    TextTransparency = 0.35,
+    FontWeight = Enum.FontWeight.Medium,
+})
+
+AuthTab:Button({
+    Title = "Join Discord to Get Key",
+    Icon = "solar:discord-bold",
+    Callback = function()
+        setclipboard("https://discord.gg/QhA9nBeSuz")
+        WindUI:Notify({
+            Title = "Discord Copied",
+            Content = "Discord invite link copied to clipboard!",
+            Duration = 3,
+        })
+    end,
+})
 
 AuthTab:Space()
 
@@ -211,6 +230,8 @@ AuthTab:Button({
             task.wait(1.5)
             AuthWindow:Destroy()
             loadHub(enteredKey)
+            
+            -- Chat will be opened manually via dashboard button
         else
             WindUI:Notify({
                 Title = "Access Denied",
